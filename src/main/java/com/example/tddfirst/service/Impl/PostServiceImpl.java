@@ -1,8 +1,6 @@
 package com.example.tddfirst.service.Impl;
 
 import com.example.tddfirst.domain.Article;
-import com.example.tddfirst.domain.Attachment;
-import com.example.tddfirst.domain.Board;
 import com.example.tddfirst.dto.PostDetailResponseDto;
 import com.example.tddfirst.dto.ResponseDto;
 import com.example.tddfirst.repository.ArticleRepository;
@@ -14,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,14 +30,6 @@ public class PostServiceImpl implements PostService {
     public List<ResponseDto> get_list(){
         List<ResponseDto> responseDtos = new ArrayList<>();
         List<Article> articleList = articleRepository.findAll();
-//        for(Article article : articleList){
-//            responseDtos.add(new ResponseDto(
-//                    article.getBoard().getName(),
-//                    article.getTitle(),
-//                    article.getCreate_datetime().toString(),
-//                    article.getAttachments().get(0).getLocation())
-//            );
-//        }
 
         for(Article article : articleList){
             responseDtos.add(ResponseDto.builder()
@@ -53,9 +45,20 @@ public class PostServiceImpl implements PostService {
 
     @Transactional(readOnly = true)
     @Override
-    public PostDetailResponseDto getDetail(Integer id){
-
-        return new PostDetailResponseDto();
+    public PostDetailResponseDto getDetail(Integer id) {
+        Optional<Article> article = articleRepository.findById(id);
+        PostDetailResponseDto postDetailResponseDto;
+        if (!article.isPresent()) {
+            throw new NullPointerException("게시글이 없습니다.");
+        } else {
+            postDetailResponseDto = PostDetailResponseDto.builder()
+                    .boardName(article.get().getBoard().getName())
+                    .created_datetime(article.get().getCreate_datetime().toString())
+                    .location(Collections.singletonList(article.get().getAttachments().get(0).getLocation()))
+                    .title(article.get().getTitle())
+                    .build();
+        }
+        return postDetailResponseDto;
     }
 
     @Override
