@@ -66,4 +66,27 @@ public class ArticleRepositoryTest {
         assertNotEquals(0, result.size());
         assertEquals(2, result.size());
     }
+
+//    @DisplayName("게시글 수정")
+//    @Test
+//    public void updatePost(){
+//
+//        // given
+//        articleRepository.saveAll(
+//                Arrays.asList(
+//                        new Article(1, null, "title_1","contents_1",10, null),
+//                        new Article(2, null, "title_2","contents_2",20, null)
+//                )
+//        );
+//        Article article = new Article(1,null,"update","content Update",10,null);
+//        articleRepository.update(article);
+//
+//        // when
+//        List<Article> result = articleRepository.findAll();
+//
+//        // then
+//        log.info("article Entity size : "+result.size() );
+//        assertNotEquals(0, result.size());
+//        assertEquals(2, result.size());
+//    }
 }

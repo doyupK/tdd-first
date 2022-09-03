@@ -132,13 +132,8 @@ class PostServiceImplTest {
         assertEquals(postDetailResponseDtoStub.getTitle(),postDetailResponseDtoResult.getTitle());
         assertEquals(postDetailResponseDtoStub.getCreated_datetime(),postDetailResponseDtoResult.getCreated_datetime());
         assertEquals(postDetailResponseDtoStub.getLocation(),postDetailResponseDtoResult.getLocation());
-
-
     }
 
-    @Test
-    void deletePost() {
-    }
 
     @Test
     void updatePost() {

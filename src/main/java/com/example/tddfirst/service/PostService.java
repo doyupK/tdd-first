@@ -17,4 +17,7 @@ public interface PostService {
 
     @Transactional
     String deletePost(Integer id);
+
+
+
 }

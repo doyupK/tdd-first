@@ -61,8 +61,10 @@ public class PostServiceImpl implements PostService {
         return postDetailResponseDto;
     }
 
+    @Transactional
     @Override
     public String deletePost(Integer id) {
+        articleRepository.deleteById(id);
         return "delete_ok";
     }
 
